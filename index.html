@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Winson Immanuel S — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 :root{
   --gold:#C9A84C;--gold-l:#FFD700;--gold-p:#f0d080;--gold-d:#8a6f2e;--gold-x:#5a4a1e;
@@ -17,11 +18,11 @@ body{background:var(--black);color:var(--white);font-family:'Montserrat',sans-se
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:var(--black)}
 ::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:2px}
-
+ 
 /* CURSOR */
 .cursor{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:99999;mix-blend-mode:difference;top:0;left:0}
 .cursor-ring{width:32px;height:32px;border:1px solid rgba(201,168,76,.7);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;top:0;left:0;transition:transform .15s,opacity .15s}
-
+ 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 60px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,6,.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(201,168,76,.1);transition:all .3s}
 nav.scrolled{padding:14px 60px}
@@ -34,7 +35,7 @@ nav.scrolled{padding:14px 60px}
 .nav-links a:hover::after{width:100%}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:none;background:none;border:none;padding:4px}
 .hamburger span{width:22px;height:1px;background:var(--gold);display:block;transition:all .3s}
-
+ 
 /* HERO */
 #hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:0 60px}
 #particles-canvas{position:absolute;inset:0;z-index:0}
@@ -65,7 +66,7 @@ nav.scrolled{padding:14px 60px}
 .deco.tr{top:24px;right:24px;width:50px;height:50px;border-top:1px solid rgba(201,168,76,.3);border-right:1px solid rgba(201,168,76,.3)}
 .deco.bl{bottom:24px;left:24px;width:50px;height:50px;border-bottom:1px solid rgba(201,168,76,.3);border-left:1px solid rgba(201,168,76,.3)}
 .deco.br{bottom:24px;right:24px;width:50px;height:50px;border-bottom:1px solid rgba(201,168,76,.3);border-right:1px solid rgba(201,168,76,.3)}
-
+ 
 /* SECTION */
 section{padding:120px 60px;position:relative}
 .sl{font-size:.6rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
@@ -74,22 +75,15 @@ section{padding:120px 60px;position:relative}
 .sdiv{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.18),transparent);position:relative}
 .sdiv::before{content:'◆';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:var(--gold);font-size:.45rem;padding:0 14px;background:var(--black)}
 .sdiv.b2::before{background:var(--b2)}
-
+ 
 /* ABOUT */
 #about{background:var(--b2);overflow:hidden}
 #about::before{content:'';position:absolute;top:-220px;right:-220px;width:650px;height:650px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.05),transparent 70%);pointer-events:none}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto}
 .about-bio{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;line-height:2;color:var(--wd)}
 .about-bio strong{color:var(--gold);font-weight:600}
-
-/* EMBOSSED STAT CARDS */
 .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:3px}
-.stat-card{
-  position:relative;overflow:hidden;padding:36px 28px;
-  background:linear-gradient(145deg,#181510,#0d0c09);
-  border:1px solid rgba(201,168,76,.16);
-  transition:all .4s cubic-bezier(.2,.8,.3,1);
-}
+.stat-card{position:relative;overflow:hidden;padding:36px 28px;background:linear-gradient(145deg,#181510,#0d0c09);border:1px solid rgba(201,168,76,.16);transition:all .4s cubic-bezier(.2,.8,.3,1)}
 .stat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.13),transparent 55%,rgba(201,168,76,.03) 100%);opacity:0;transition:opacity .4s}
 .stat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.45),transparent);transform:scaleX(0);transform-origin:left;transition:transform .55s ease}
 .stat-card:hover{border-color:rgba(201,168,76,.45);transform:translateY(-5px) scale(1.01);box-shadow:0 20px 60px rgba(0,0,0,.7),0 0 0 1px rgba(201,168,76,.1) inset,0 4px 30px rgba(201,168,76,.1)}
@@ -101,7 +95,7 @@ section{padding:120px 60px;position:relative}
 .stat-glow{position:absolute;bottom:-30px;right:-30px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.1),transparent 70%);pointer-events:none}
 .stat-line{position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.0));transition:background .4s}
 .stat-card:hover .stat-line{background:linear-gradient(90deg,transparent,rgba(201,168,76,.35),transparent)}
-
+ 
 /* SKILLS */
 #skills{background:var(--black);overflow:hidden}
 #skills::before{content:'';position:absolute;bottom:-300px;left:-200px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.04),transparent 70%);pointer-events:none}
@@ -113,7 +107,7 @@ section{padding:120px 60px;position:relative}
 .skill-tag::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));transform:scaleX(0);transform-origin:left;transition:transform .35s}
 .skill-tag:hover::before{transform:scaleX(1)}
 .skill-tag:hover{color:var(--gold);border-color:rgba(201,168,76,.5);box-shadow:0 0 20px rgba(201,168,76,.08),inset 0 0 20px rgba(201,168,76,.04)}
-
+ 
 /* PROJECTS */
 #projects{background:var(--b2);overflow:hidden}
 #projects::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;border-radius:50%;border:1px solid rgba(201,168,76,.04);pointer-events:none}
@@ -128,13 +122,7 @@ section{padding:120px 60px;position:relative}
 .ptb.open .arrow{transform:rotate(180deg)}
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:3px;max-height:0;overflow:hidden;opacity:0;transition:max-height 1s cubic-bezier(.16,1,.3,1),opacity .6s}
 .pgrid.open{max-height:3000px;opacity:1}
-.pc{
-  background:linear-gradient(160deg,#131108,#0a0a07);
-  border:1px solid rgba(201,168,76,.1);padding:40px 36px;
-  position:relative;overflow:hidden;
-  transform:translateY(32px);opacity:0;
-  transition:transform .6s ease,opacity .6s ease,border-color .3s,box-shadow .4s;
-}
+.pc{background:linear-gradient(160deg,#131108,#0a0a07);border:1px solid rgba(201,168,76,.1);padding:40px 36px;position:relative;overflow:hidden;transform:translateY(32px);opacity:0;transition:transform .6s ease,opacity .6s ease,border-color .3s,box-shadow .4s}
 .pgrid.open .pc{transform:translateY(0);opacity:1}
 .pgrid.open .pc:nth-child(1){transition-delay:.1s}
 .pgrid.open .pc:nth-child(2){transition-delay:.2s}
@@ -156,7 +144,7 @@ section{padding:120px 60px;position:relative}
 .plink{font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold-d);text-decoration:none;border-bottom:1px solid transparent;transition:all .3s;padding-bottom:2px}
 .plink:hover{color:var(--gold);border-bottom-color:var(--gold)}
 .ftag{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04));border:1px solid rgba(201,168,76,.3);font-size:.62rem;letter-spacing:1.5px;color:var(--gold);margin-bottom:18px;box-shadow:0 0 20px rgba(201,168,76,.07)}
-
+ 
 /* EXPERIENCE */
 #experience{background:var(--black)}
 .timeline{max-width:800px;position:relative}
@@ -167,7 +155,7 @@ section{padding:120px 60px;position:relative}
 .trole{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--white);margin-bottom:6px}
 .tco{font-size:.78rem;color:var(--gold);letter-spacing:1px;margin-bottom:14px}
 .tdesc{font-size:.8rem;color:var(--wd);line-height:1.85}
-
+ 
 /* EDUCATION */
 #education{background:var(--b2)}
 .edu-card{max-width:680px;position:relative;overflow:hidden;padding:52px;background:linear-gradient(145deg,#161410,#0d0c0a);border:1px solid rgba(201,168,76,.22);box-shadow:0 30px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,215,0,.06),inset 0 0 80px rgba(201,168,76,.025)}
@@ -182,7 +170,7 @@ section{padding:120px 60px;position:relative}
 .edu-maj{color:var(--gold)}
 .edu-col{font-size:.85rem;color:var(--wd);margin-bottom:8px;letter-spacing:.5px}
 .edu-yr{font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold-d)}
-
+ 
 /* CONTACT */
 #contact{background:var(--black);text-align:center;overflow:hidden}
 #contact::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:50%;border:1px solid rgba(201,168,76,.04);pointer-events:none}
@@ -195,28 +183,244 @@ section{padding:120px 60px;position:relative}
 .cl:hover::before{transform:scaleX(1)}
 .cl:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px);box-shadow:0 10px 30px rgba(201,168,76,.12)}
 .cl svg{width:16px;height:16px;fill:currentColor;flex-shrink:0}
-
+ 
 /* FOOTER */
 footer{padding:28px 60px;background:var(--b2);border-top:1px solid rgba(201,168,76,.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .fn{font-family:'Cinzel',serif;font-size:.82rem;color:var(--gold);letter-spacing:2px}
 .fc{font-size:.62rem;letter-spacing:2px;color:var(--gray);text-transform:uppercase}
-
+ 
+/* ===== FLOATING TOOLS DOCK ===== */
+.float-dock{
+  position:fixed;
+  right:28px;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:5000;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  align-items:center;
+}
+.dock-btn{
+  width:52px;height:52px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#181510,#0d0c09);
+  border:1px solid rgba(201,168,76,.35);
+  display:flex;align-items:center;justify-content:center;
+  cursor:none;
+  position:relative;
+  transition:all .35s cubic-bezier(.2,.8,.3,1);
+  box-shadow:0 8px 30px rgba(0,0,0,.6);
+}
+.dock-btn svg{width:22px;height:22px;fill:var(--gold-d);transition:fill .3s}
+.dock-btn:hover{
+  border-color:var(--gold);
+  transform:scale(1.18) translateX(-6px);
+  box-shadow:0 12px 40px rgba(201,168,76,.25),0 0 0 1px rgba(201,168,76,.15) inset;
+}
+.dock-btn:hover svg{fill:var(--gold)}
+.dock-btn .dock-label{
+  position:absolute;
+  right:62px;
+  top:50%;transform:translateY(-50%);
+  background:linear-gradient(135deg,#1a1608,#111008);
+  border:1px solid rgba(201,168,76,.35);
+  color:var(--gold);
+  font-size:.6rem;letter-spacing:2px;text-transform:uppercase;
+  padding:7px 14px;
+  white-space:nowrap;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s,transform .25s;
+  transform:translateY(-50%) translateX(8px);
+}
+.dock-btn:hover .dock-label{opacity:1;transform:translateY(-50%) translateX(0)}
+.dock-divider{width:1px;height:20px;background:linear-gradient(to bottom,transparent,rgba(201,168,76,.25),transparent)}
+ 
+/* ===== IMAGE → PDF MODAL ===== */
+.tool-overlay{
+  position:fixed;inset:0;
+  background:rgba(4,3,2,.92);
+  backdrop-filter:blur(18px);
+  z-index:9000;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .4s;
+}
+.tool-overlay.open{opacity:1;pointer-events:all}
+.tool-modal{
+  width:min(760px,95vw);
+  max-height:92vh;
+  overflow-y:auto;
+  background:linear-gradient(160deg,#141108,#0c0b08);
+  border:1px solid rgba(201,168,76,.28);
+  box-shadow:0 40px 120px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,215,0,.07);
+  position:relative;
+  animation:modalIn .4s cubic-bezier(.2,.8,.3,1) both;
+}
+.tool-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold-l),transparent)}
+@keyframes modalIn{from{transform:scale(.92) translateY(24px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.modal-head{
+  padding:36px 40px 24px;
+  border-bottom:1px solid rgba(201,168,76,.1);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+}
+.modal-head-left h2{font-family:'Cinzel',serif;font-size:1.5rem;color:var(--white);margin-bottom:6px}
+.modal-head-left p{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold-d)}
+.modal-close{
+  width:38px;height:38px;background:none;border:1px solid rgba(201,168,76,.25);
+  cursor:none;display:flex;align-items:center;justify-content:center;
+  color:var(--wd);font-size:1.2rem;transition:all .3s;flex-shrink:0;
+}
+.modal-close:hover{border-color:var(--gold);color:var(--gold);transform:rotate(90deg)}
+.modal-body{padding:32px 40px 40px}
+ 
+/* Tab switcher */
+.tool-tabs{display:flex;gap:2px;margin-bottom:28px;border-bottom:1px solid rgba(201,168,76,.1)}
+.ttab{
+  padding:12px 22px;font-size:.65rem;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--wd);cursor:none;background:none;border:none;
+  border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .3s;
+  font-family:'Montserrat',sans-serif;
+}
+.ttab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.ttab:hover{color:var(--gold-p)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+ 
+/* Drop zone */
+.drop-zone{
+  border:1.5px dashed rgba(201,168,76,.28);
+  background:rgba(201,168,76,.02);
+  padding:60px 32px;
+  text-align:center;
+  position:relative;
+  transition:all .3s;
+  cursor:none;
+}
+.drop-zone.drag-over{border-color:var(--gold);background:rgba(201,168,76,.06);box-shadow:0 0 40px rgba(201,168,76,.08) inset}
+.drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:none;width:100%;height:100%}
+.drop-icon{
+  width:60px;height:60px;margin:0 auto 16px;
+  border:1px solid rgba(201,168,76,.3);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(201,168,76,.06);
+}
+.drop-icon svg{width:26px;height:26px;fill:var(--gold-d)}
+.drop-zone h3{font-family:'Cinzel',serif;font-size:1rem;color:var(--white);margin-bottom:8px}
+.drop-zone p{font-size:.72rem;color:var(--wd);letter-spacing:.5px}
+.drop-zone .drop-hint{font-size:.62rem;color:var(--gold-d);letter-spacing:1.5px;text-transform:uppercase;margin-top:8px}
+ 
+/* Image preview grid */
+.img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:20px}
+.img-thumb{
+  position:relative;aspect-ratio:1;
+  border:1px solid rgba(201,168,76,.2);overflow:hidden;
+  background:#0a0a07;
+}
+.img-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.img-thumb .rm{
+  position:absolute;top:6px;right:6px;
+  width:22px;height:22px;
+  background:rgba(0,0,0,.8);border:1px solid rgba(201,168,76,.4);
+  color:var(--gold);font-size:.7rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:none;transition:all .2s;border-radius:0;
+}
+.img-thumb .rm:hover{background:rgba(201,168,76,.2);border-color:var(--gold)}
+.img-thumb .img-name{
+  position:absolute;bottom:0;left:0;right:0;
+  background:rgba(0,0,0,.75);
+  font-size:.5rem;letter-spacing:.5px;color:var(--wd);
+  padding:4px 6px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.img-order{
+  position:absolute;top:6px;left:6px;
+  background:rgba(201,168,76,.85);color:var(--black);
+  width:20px;height:20px;display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:700;font-family:'Cinzel',serif;
+}
+ 
+/* PDF options */
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+.opt-item{display:flex;flex-direction:column;gap:6px}
+.opt-item label{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold-d)}
+.opt-item select,.opt-item input{
+  background:#0d0c09;border:1px solid rgba(201,168,76,.22);
+  color:var(--white);padding:10px 14px;font-size:.75rem;
+  font-family:'Montserrat',sans-serif;outline:none;
+  cursor:none;transition:border .3s;width:100%;
+  appearance:none;
+}
+.opt-item select:focus,.opt-item input:focus{border-color:var(--gold)}
+.opt-item select option{background:#141108}
+.opt-item.full{grid-column:1/-1}
+ 
+/* Action buttons */
+.act-row{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.act-btn{
+  padding:14px 30px;font-size:.65rem;letter-spacing:2.5px;text-transform:uppercase;
+  font-family:'Montserrat',sans-serif;font-weight:600;cursor:none;
+  border:none;transition:all .35s;position:relative;overflow:hidden;
+}
+.act-btn.primary{
+  background:linear-gradient(135deg,var(--gold-x),var(--gold),var(--gold-l));
+  color:var(--black);box-shadow:0 8px 30px rgba(201,168,76,.25);
+}
+.act-btn.primary:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(201,168,76,.4)}
+.act-btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.act-btn.secondary{
+  background:transparent;color:var(--wd);border:1px solid rgba(201,168,76,.25);
+}
+.act-btn.secondary:hover{border-color:var(--gold);color:var(--gold)}
+.act-btn.danger{
+  background:transparent;color:#c97a4c;border:1px solid rgba(201,168,76,.15);
+}
+.act-btn.danger:hover{border-color:#c97a4c;color:#e8956a}
+ 
+/* Progress */
+.progress-wrap{margin-top:20px;display:none}
+.progress-wrap.show{display:block}
+.prog-bar-bg{background:rgba(201,168,76,.08);height:3px;width:100%;position:relative;overflow:hidden}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold-l));width:0%;transition:width .4s}
+.prog-text{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold-d);margin-top:8px}
+ 
+/* Success state */
+.success-msg{
+  display:none;margin-top:16px;padding:16px 20px;
+  background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);
+  color:var(--gold);font-size:.72rem;letter-spacing:1px;
+}
+.success-msg.show{display:flex;align-items:center;gap:10px}
+ 
+/* ===== BACK TO TOP ===== */
+.btt{
+  position:fixed;bottom:28px;right:28px;
+  width:44px;height:44px;
+  background:linear-gradient(145deg,#181510,#0d0c09);
+  border:1px solid rgba(201,168,76,.3);
+  display:flex;align-items:center;justify-content:center;
+  cursor:none;z-index:4999;
+  opacity:0;pointer-events:none;
+  transition:all .35s;transform:translateY(16px);
+}
+.btt.show{opacity:1;pointer-events:all;transform:translateY(0)}
+.btt:hover{border-color:var(--gold);box-shadow:0 8px 30px rgba(201,168,76,.2)}
+.btt svg{width:16px;height:16px;stroke:var(--gold-d);fill:none;stroke-width:2;transition:stroke .3s}
+.btt:hover svg{stroke:var(--gold)}
+ 
 /* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes sPulse{0%,100%{opacity:1;transform:scaleY(1)}50%{opacity:.4;transform:scaleY(.6)}}
 @keyframes shimBg{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
-@keyframes rotateSVG{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @keyframes counterPop{0%{transform:scale(.85);opacity:0}60%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}
-
-/* SCROLL REVEAL */
 .reveal{opacity:0;transform:translateY(48px);transition:opacity .85s ease,transform .85s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-l{opacity:0;transform:translateX(-48px);transition:opacity .85s ease,transform .85s ease}
 .reveal-l.visible{opacity:1;transform:translateX(0)}
 .reveal-r{opacity:0;transform:translateX(48px);transition:opacity .85s ease,transform .85s ease}
 .reveal-r.visible{opacity:1;transform:translateX(0)}
-
+ 
 @media(max-width:900px){
   nav{padding:16px 20px}
   nav.scrolled{padding:12px 20px}
@@ -230,14 +434,176 @@ footer{padding:28px 60px;background:var(--b2);border-top:1px solid rgba(201,168,
   .about-stats{grid-template-columns:1fr 1fr}
   .hero-cta{flex-direction:column;align-items:center}
   footer{padding:20px;flex-direction:column;text-align:center}
+  .float-dock{right:14px;gap:10px}
+  .dock-btn{width:44px;height:44px}
+  .opt-grid{grid-template-columns:1fr}
+  .modal-body{padding:24px 20px 32px}
+  .modal-head{padding:24px 20px 18px}
 }
 </style>
 </head>
 <body>
-
+ 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="crng"></div>
-
+ 
+<!-- ===== FLOATING DOCK ===== -->
+<div class="float-dock" id="floatDock">
+  <!-- Image → PDF -->
+  <button class="dock-btn" onclick="openTool('img2pdf')" title="Image to PDF">
+    <div class="dock-label">Image → PDF</div>
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8.5 13.5l1.5 2 2.5-3.5L16 16H8l.5-2.5z"/></svg>
+  </button>
+  <!-- Scroll to top indicator + divider -->
+  <div class="dock-divider"></div>
+  <!-- Theme toggle (bonus) -->
+  <button class="dock-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle Theme">
+    <div class="dock-label">Toggle Theme</div>
+    <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+  </button>
+</div>
+ 
+<!-- Back to top -->
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+ 
+<!-- ===== TOOL MODAL ===== -->
+<div class="tool-overlay" id="toolOverlay" onclick="handleOverlayClick(event)">
+  <div class="tool-modal" id="toolModal">
+    <div class="modal-head">
+      <div class="modal-head-left">
+        <h2 id="modalTitle">Image → PDF Converter</h2>
+        <p id="modalSub">✦ Multipurpose Tool</p>
+      </div>
+      <button class="modal-close" onclick="closeTool()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody">
+ 
+      <!-- TABS -->
+      <div class="tool-tabs">
+        <button class="ttab active" onclick="switchTab('convert',this)">Convert Images</button>
+        <button class="ttab" onclick="switchTab('settings',this)">PDF Settings</button>
+        <button class="ttab" onclick="switchTab('help',this)">Help</button>
+      </div>
+ 
+      <!-- TAB: Convert -->
+      <div class="tab-pane active" id="tab-convert">
+        <div class="drop-zone" id="dropZone">
+          <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFiles(this.files)"/>
+          <div class="drop-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          </div>
+          <h3>Drop Images Here</h3>
+          <p>or click to browse files</p>
+          <p class="drop-hint">JPG · PNG · WEBP · GIF · BMP · TIFF</p>
+        </div>
+ 
+        <div class="img-grid" id="imgGrid"></div>
+ 
+        <div class="act-row">
+          <button class="act-btn primary" id="convertBtn" disabled onclick="convertToPDF()">
+            ⬇ Convert to PDF
+          </button>
+          <button class="act-btn secondary" onclick="document.getElementById('fileInput').click()">+ Add More</button>
+          <button class="act-btn danger" onclick="clearAll()">✕ Clear All</button>
+        </div>
+ 
+        <div class="progress-wrap" id="progressWrap">
+          <div class="prog-bar-bg"><div class="prog-bar" id="progBar"></div></div>
+          <p class="prog-text" id="progText">Processing…</p>
+        </div>
+        <div class="success-msg" id="successMsg">
+          <span>◆</span> <span id="successTxt">PDF downloaded successfully!</span>
+        </div>
+      </div>
+ 
+      <!-- TAB: Settings -->
+      <div class="tab-pane" id="tab-settings">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--wd);margin-bottom:24px;line-height:1.8">Customise how your PDF is generated — page size, orientation, quality, and more.</p>
+        <div class="opt-grid">
+          <div class="opt-item">
+            <label>Page Size</label>
+            <select id="optSize">
+              <option value="a4" selected>A4</option>
+              <option value="a3">A3</option>
+              <option value="letter">US Letter</option>
+              <option value="legal">Legal</option>
+              <option value="a5">A5</option>
+            </select>
+          </div>
+          <div class="opt-item">
+            <label>Orientation</label>
+            <select id="optOrient">
+              <option value="portrait" selected>Portrait</option>
+              <option value="landscape">Landscape</option>
+            </select>
+          </div>
+          <div class="opt-item">
+            <label>Image Quality (%)</label>
+            <input type="number" id="optQuality" value="92" min="10" max="100"/>
+          </div>
+          <div class="opt-item">
+            <label>Margin (mm)</label>
+            <input type="number" id="optMargin" value="10" min="0" max="50"/>
+          </div>
+          <div class="opt-item">
+            <label>Image Fit</label>
+            <select id="optFit">
+              <option value="fit" selected>Fit to Page</option>
+              <option value="fill">Fill Page</option>
+              <option value="center">Centre (no scale)</option>
+            </select>
+          </div>
+          <div class="opt-item">
+            <label>Background</label>
+            <select id="optBg">
+              <option value="white" selected>White</option>
+              <option value="black">Black</option>
+              <option value="transparent">Transparent</option>
+            </select>
+          </div>
+          <div class="opt-item full">
+            <label>Output Filename</label>
+            <input type="text" id="optFilename" value="winson-converted" placeholder="filename (no .pdf)"/>
+          </div>
+        </div>
+        <div class="act-row">
+          <button class="act-btn secondary" onclick="resetSettings()">Reset Defaults</button>
+        </div>
+      </div>
+ 
+      <!-- TAB: Help -->
+      <div class="tab-pane" id="tab-help">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--wd);line-height:2">
+          <p style="margin-bottom:20px"><strong style="color:var(--gold)">How to use the converter:</strong></p>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <span style="color:var(--gold);font-family:'Cinzel',serif;flex-shrink:0">01</span>
+              <span>Click the <em>Convert Images</em> tab and drop one or more image files into the upload zone — or click to browse your device.</span>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <span style="color:var(--gold);font-family:'Cinzel',serif;flex-shrink:0">02</span>
+              <span>Preview your images in the grid. Each image becomes one PDF page. Use the <em>✕</em> button to remove unwanted images.</span>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <span style="color:var(--gold);font-family:'Cinzel',serif;flex-shrink:0">03</span>
+              <span>Switch to <em>PDF Settings</em> to customise page size, orientation, quality, margins, and filename.</span>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <span style="color:var(--gold);font-family:'Cinzel',serif;flex-shrink:0">04</span>
+              <span>Click <em>Convert to PDF</em> — your PDF downloads instantly. Everything runs locally; no files leave your device.</span>
+            </div>
+          </div>
+          <p style="margin-top:24px;font-size:.88rem;color:var(--gold-d)">✦ Supports JPG, PNG, WEBP, BMP, GIF, TIFF — up to 50 images per batch.</p>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+ 
+<!-- ===== NAV ===== -->
 <nav id="nb">
   <a href="#hero" class="nav-logo">W<span>inson</span></a>
   <ul class="nav-links" id="nl">
@@ -250,7 +616,8 @@ footer{padding:28px 60px;background:var(--b2);border-top:1px solid rgba(201,168,
   </ul>
   <button class="hamburger" id="hbg"><span></span><span></span><span></span></button>
 </nav>
-
+ 
+<!-- ===== HERO ===== -->
 <section id="hero">
   <canvas id="particles-canvas"></canvas>
   <div class="hero-rings">
@@ -285,9 +652,9 @@ footer{padding:28px 60px;background:var(--b2);border-top:1px solid rgba(201,168,
   <div class="deco tl"></div><div class="deco tr"></div>
   <div class="deco bl"></div><div class="deco br"></div>
 </section>
-
+ 
 <div class="sdiv" style="background:var(--b2)"></div>
-
+ 
 <section id="about">
   <div class="bg-grid" style="opacity:.4"></div>
   <div class="about-grid" style="position:relative;z-index:1">
@@ -302,36 +669,32 @@ footer{padding:28px 60px;background:var(--b2);border-top:1px solid rgba(201,168,
         <div class="stat-icon">🚀</div>
         <div class="stat-num" data-target="5" data-suffix="+">5+</div>
         <div class="stat-lbl">Projects<br>Built</div>
-        <div class="stat-glow"></div>
-        <div class="stat-line"></div>
+        <div class="stat-glow"></div><div class="stat-line"></div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">💰</div>
         <div class="stat-num" data-target="13" data-prefix="₹" data-suffix="L">₹13L</div>
         <div class="stat-lbl">MSME<br>Funded</div>
-        <div class="stat-glow"></div>
-        <div class="stat-line"></div>
+        <div class="stat-glow"></div><div class="stat-line"></div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">⚡</div>
         <div class="stat-num" data-target="3" data-suffix="+">3+</div>
         <div class="stat-lbl">Tech<br>Domains</div>
-        <div class="stat-glow"></div>
-        <div class="stat-line"></div>
+        <div class="stat-glow"></div><div class="stat-line"></div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🎓</div>
         <div class="stat-num" data-target="2027" data-suffix="">2027</div>
         <div class="stat-lbl">Graduating</div>
-        <div class="stat-glow"></div>
-        <div class="stat-line"></div>
+        <div class="stat-glow"></div><div class="stat-line"></div>
       </div>
     </div>
   </div>
 </section>
-
+ 
 <div class="sdiv b2" style="background:var(--black)"></div>
-
+ 
 <section id="skills">
   <div class="bg-grid" style="opacity:.28"></div>
   <div class="skills-wrap" style="position:relative;z-index:1">
@@ -349,9 +712,9 @@ footer{padding:28px 60px;background:var(--b2);border-top:1px solid rgba(201,168,
     </div>
   </div>
 </section>
-
+ 
 <div class="sdiv" style="background:var(--b2)"></div>
-
+ 
 <section id="projects">
   <div class="bg-grid" style="opacity:.28"></div>
   <div style="position:relative;z-index:1">
@@ -411,9 +774,9 @@ footer{padding:28px 60px;background:var(--b2);border-top:1px solid rgba(201,168,
     </div>
   </div>
 </section>
-
+ 
 <div class="sdiv b2" style="background:var(--black)"></div>
-
+ 
 <section id="experience">
   <div class="bg-grid" style="opacity:.22"></div>
   <div style="position:relative;z-index:1">
@@ -428,9 +791,9 @@ footer{padding:28px 60px;background:var(--b2);border-top:1px solid rgba(201,168,
     </div>
   </div>
 </section>
-
+ 
 <div class="sdiv" style="background:var(--b2)"></div>
-
+ 
 <section id="education">
   <div class="bg-grid" style="opacity:.28"></div>
   <div style="position:relative;z-index:1">
@@ -449,9 +812,9 @@ footer{padding:28px 60px;background:var(--b2);border-top:1px solid rgba(201,168,
     </div>
   </div>
 </section>
-
+ 
 <div class="sdiv b2" style="background:var(--black)"></div>
-
+ 
 <section id="contact">
   <div class="bg-grid" style="opacity:.28"></div>
   <div class="ci">
@@ -469,28 +832,31 @@ footer{padding:28px 60px;background:var(--b2);border-top:1px solid rgba(201,168,
     </div>
   </div>
 </section>
-
+ 
 <footer>
   <span class="fn">Winson Immanuel S</span>
   <span class="fc">© 2025 · All Rights Reserved</span>
 </footer>
-
+ 
 <script>
-// CURSOR
+// ===== CURSOR =====
 const cur=document.getElementById('cursor'),crng=document.getElementById('crng');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
 (function ac(){cur.style.cssText+=`;left:${mx-4}px;top:${my-4}px`;rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crng.style.cssText+=`;left:${rx-16}px;top:${ry-16}px`;requestAnimationFrame(ac)})();
-document.querySelectorAll('a,button,.skill-tag,.stat-card,.pc').forEach(el=>{
+document.querySelectorAll('a,button,.skill-tag,.stat-card,.pc,.dock-btn,.act-btn,.ttab,.img-thumb,.drop-zone').forEach(el=>{
   el.addEventListener('mouseenter',()=>{crng.style.transform='scale(1.9)';crng.style.opacity='.4'});
   el.addEventListener('mouseleave',()=>{crng.style.transform='scale(1)';crng.style.opacity='.7'});
 });
-
-// NAVBAR
-window.addEventListener('scroll',()=>document.getElementById('nb').classList.toggle('scrolled',scrollY>60));
+ 
+// ===== NAVBAR =====
+window.addEventListener('scroll',()=>{
+  document.getElementById('nb').classList.toggle('scrolled',scrollY>60);
+  document.getElementById('btt').classList.toggle('show',scrollY>300);
+});
 document.getElementById('hbg').onclick=()=>document.getElementById('nl').classList.toggle('open');
-
-// PARTICLES
+ 
+// ===== PARTICLES =====
 const canvas=document.getElementById('particles-canvas'),ctx=canvas.getContext('2d');
 let W,H,pts=[];
 function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
@@ -504,23 +870,23 @@ class P{
 for(let i=0;i<140;i++)pts.push(new P());
 function lines(){for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<108){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(201,168,76,${.07*(1-d/108)})`;ctx.lineWidth=.4;ctx.stroke()}}}}
 (function anim(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.update();p.draw()});lines();requestAnimationFrame(anim)})();
-
-// HERO RING SLOW ROTATE
+ 
+// ===== HERO RING ROTATE =====
 let angle=0;
 (function rotRing(){angle+=.12;document.getElementById('ring-svg').style.transform=`rotate(${angle}deg)`;requestAnimationFrame(rotRing)})();
-
-// PROJECTS TOGGLE
+ 
+// ===== PROJECTS TOGGLE =====
 function toggleP(){
   const g=document.getElementById('pg'),b=document.getElementById('ptb');
   g.classList.toggle('open');b.classList.toggle('open');
 }
-
-// SCROLL REVEAL
+ 
+// ===== SCROLL REVEAL =====
 const revEls=document.querySelectorAll('.reveal,.reveal-l,.reveal-r');
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.08});
 revEls.forEach(el=>obs.observe(el));
-
-// STAT COUNTER
+ 
+// ===== STAT COUNTER =====
 function animCount(el,target,pre,suf,dur){
   let start=null;
   el.style.animation='counterPop .6s ease forwards';
@@ -546,6 +912,216 @@ const sobs=new IntersectionObserver(entries=>{
   });
 },{threshold:.3});
 document.querySelectorAll('.about-stats').forEach(el=>sobs.observe(el));
+ 
+// ===== THEME TOGGLE =====
+let darkMode=true;
+function toggleTheme(){
+  darkMode=!darkMode;
+  if(!darkMode){
+    document.documentElement.style.setProperty('--black','#f5f0e8');
+    document.documentElement.style.setProperty('--b2','#ede8df');
+    document.documentElement.style.setProperty('--white','#1a1208');
+    document.documentElement.style.setProperty('--wd','#5a4a2e');
+    document.documentElement.style.setProperty('--gray','#b0a080');
+  } else {
+    document.documentElement.style.setProperty('--black','#060606');
+    document.documentElement.style.setProperty('--b2','#0c0c0c');
+    document.documentElement.style.setProperty('--white','#f5f0e8');
+    document.documentElement.style.setProperty('--wd','#b8a98a');
+    document.documentElement.style.setProperty('--gray','#3a3a3a');
+  }
+}
+ 
+// ===== TOOL MODAL =====
+function openTool(tool){
+  document.getElementById('toolOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeTool(){
+  document.getElementById('toolOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleOverlayClick(e){
+  if(e.target===document.getElementById('toolOverlay'))closeTool();
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTool()});
+ 
+function switchTab(name,el){
+  document.querySelectorAll('.ttab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+ 
+// ===== IMAGE → PDF LOGIC =====
+let imgFiles=[];
+ 
+// Drop zone
+const dz=document.getElementById('dropZone');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over')});
+dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+dz.addEventListener('drop',e=>{
+  e.preventDefault();dz.classList.remove('drag-over');
+  const files=[...e.dataTransfer.files].filter(f=>f.type.startsWith('image/'));
+  addFiles(files);
+});
+ 
+function handleFiles(files){addFiles([...files])}
+ 
+function addFiles(files){
+  files.forEach(f=>{
+    if(imgFiles.length>=50){alert('Maximum 50 images per batch.');return}
+    if(!f.type.startsWith('image/')){return}
+    imgFiles.push(f);
+  });
+  renderGrid();
+  document.getElementById('convertBtn').disabled=imgFiles.length===0;
+  document.getElementById('fileInput').value='';
+}
+ 
+function renderGrid(){
+  const grid=document.getElementById('imgGrid');
+  grid.innerHTML='';
+  imgFiles.forEach((f,i)=>{
+    const url=URL.createObjectURL(f);
+    const thumb=document.createElement('div');
+    thumb.className='img-thumb';
+    thumb.innerHTML=`
+      <img src="${url}" alt="${f.name}" onload="URL.revokeObjectURL(this.src)"/>
+      <div class="img-order">${i+1}</div>
+      <div class="img-name">${f.name}</div>
+      <div class="rm" onclick="removeImg(${i})">✕</div>
+    `;
+    grid.appendChild(thumb);
+  });
+}
+ 
+function removeImg(i){
+  imgFiles.splice(i,1);
+  renderGrid();
+  document.getElementById('convertBtn').disabled=imgFiles.length===0;
+}
+ 
+function clearAll(){
+  imgFiles=[];
+  renderGrid();
+  document.getElementById('convertBtn').disabled=true;
+  document.getElementById('successMsg').classList.remove('show');
+  document.getElementById('progressWrap').classList.remove('show');
+}
+ 
+function resetSettings(){
+  document.getElementById('optSize').value='a4';
+  document.getElementById('optOrient').value='portrait';
+  document.getElementById('optQuality').value='92';
+  document.getElementById('optMargin').value='10';
+  document.getElementById('optFit').value='fit';
+  document.getElementById('optBg').value='white';
+  document.getElementById('optFilename').value='winson-converted';
+}
+ 
+async function convertToPDF(){
+  if(imgFiles.length===0)return;
+  const btn=document.getElementById('convertBtn');
+  btn.disabled=true;
+  btn.textContent='Processing…';
+  document.getElementById('successMsg').classList.remove('show');
+  const pw=document.getElementById('progressWrap');
+  pw.classList.add('show');
+  const bar=document.getElementById('progBar');
+  const txt=document.getElementById('progText');
+ 
+  const size=document.getElementById('optSize').value;
+  const orient=document.getElementById('optOrient').value;
+  const quality=Math.min(100,Math.max(10,+document.getElementById('optQuality').value))/100;
+  const margin=+document.getElementById('optMargin').value;
+  const fit=document.getElementById('optFit').value;
+  const bg=document.getElementById('optBg').value;
+  const filename=(document.getElementById('optFilename').value.trim()||'converted')+'.pdf';
+ 
+  // Page dims in mm
+  const pageDims={a4:[210,297],a3:[297,420],letter:[215.9,279.4],legal:[215.9,355.6],a5:[148,210]};
+  const[pw_mm,ph_mm]=pageDims[size]||[210,297];
+  const[PW,PH]=orient==='landscape'?[ph_mm,pw_mm]:[pw_mm,ph_mm];
+ 
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:orient==='landscape'?'l':'p',unit:'mm',format:size==='letter'?'letter':size==='legal'?'legal':size});
+ 
+  for(let i=0;i<imgFiles.length;i++){
+    bar.style.width=`${Math.round((i/imgFiles.length)*100)}%`;
+    txt.textContent=`Processing image ${i+1} of ${imgFiles.length}…`;
+ 
+    await new Promise(res=>setTimeout(res,10));
+ 
+    const dataURL=await fileToDataURL(imgFiles[i]);
+    const imgType=imgFiles[i].type.includes('png')?'PNG':'JPEG';
+ 
+    if(i>0)doc.addPage([PW,PH],orient==='landscape'?'l':'p');
+ 
+    // Fill background
+    if(bg==='white'){doc.setFillColor(255,255,255);doc.rect(0,0,PW,PH,'F')}
+    else if(bg==='black'){doc.setFillColor(0,0,0);doc.rect(0,0,PW,PH,'F')}
+ 
+    // Get image natural dimensions via canvas
+    const dims=await getImgDims(dataURL);
+    const iW=dims.w, iH=dims.h;
+ 
+    const aW=PW-margin*2, aH=PH-margin*2;
+    let dW,dH,dX,dY;
+ 
+    if(fit==='fit'){
+      const scale=Math.min(aW/iW*25.4/96,aH/iH*25.4/96, aW/iW,aH/iH);
+      dW=iW*(aW/iW<aH/iH?aW/iW:aH/iH);
+      dH=iH*(aW/iW<aH/iH?aW/iW:aH/iH);
+      // simpler:
+      const sr=Math.min(aW/iW,aH/iH);
+      dW=iW*sr;dH=iH*sr;
+      dX=margin+(aW-dW)/2;dY=margin+(aH-dH)/2;
+    } else if(fit==='fill'){
+      dW=aW;dH=aH;dX=margin;dY=margin;
+    } else {
+      // center no scale — convert px to mm assuming 96dpi
+      const mmW=iW*25.4/96, mmH=iH*25.4/96;
+      dW=Math.min(mmW,aW);dH=Math.min(mmH,aH);
+      dX=margin+(aW-dW)/2;dY=margin+(aH-dH)/2;
+    }
+ 
+    doc.addImage(dataURL,imgType,dX,dY,dW,dH,undefined,'FAST');
+  }
+ 
+  bar.style.width='100%';
+  txt.textContent='Finalising PDF…';
+  await new Promise(r=>setTimeout(r,120));
+ 
+  doc.save(filename);
+ 
+  pw.classList.remove('show');
+  bar.style.width='0%';
+  btn.disabled=false;
+  btn.textContent='⬇ Convert to PDF';
+  const sm=document.getElementById('successMsg');
+  document.getElementById('successTxt').textContent=`PDF "${filename}" downloaded — ${imgFiles.length} page${imgFiles.length>1?'s':''}!`;
+  sm.classList.add('show');
+  setTimeout(()=>sm.classList.remove('show'),5000);
+}
+ 
+function fileToDataURL(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=e=>res(e.target.result);
+    r.onerror=rej;
+    r.readAsDataURL(file);
+  });
+}
+ 
+function getImgDims(src){
+  return new Promise(res=>{
+    const img=new Image();
+    img.onload=()=>res({w:img.naturalWidth,h:img.naturalHeight});
+    img.src=src;
+  });
+}
 </script>
 </body>
 </html>
+ 
